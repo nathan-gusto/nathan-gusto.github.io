@@ -13,24 +13,25 @@
   <meta content="#ffffff" name="msapplication-TileColor"/>
   <meta content="https://s3.amazonaws.com/static.gusto/favicons/gusto-favicon-144x144.png" name="msapplication-TileImage"/>
   <meta charset="UTF-8">
-  <style type="text/css">
+  <style>
     /* START Custom CSS */
       @font-face {
         font-family: 'gcentra';
         font-weight: 300;
         font-style: normal;
         font-display: swap;
-        unicode-range: U + 000-5ff; /* Download only latin glyphs */
+        unicode-range: U+000-5ff; /* Download only latin glyphs */
         src: local('gcentra-book'),
           url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-book.woff2') format('woff2'),
           url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-book.woff') format('woff');
       }
+
       @font-face {
         font-family: 'gcentra';
         font-weight: 400;
         font-style: normal;
         font-display: swap;
-        unicode-range: U + 000-5ff; /* Download only latin glyphs */
+        unicode-range: U+000-5ff; /* Download only latin glyphs */
         src: local('gcentra-medium'),
           url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-medium.woff2') format('woff2'),
           url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-medium.woff') format('woff');
@@ -41,7 +42,7 @@
         font-weight: 700;
         font-style: normal;
         font-display: swap;
-        unicode-range: U + 000-5ff; /* Download only latin glyphs */
+        unicode-range: U+000-5ff; /* Download only latin glyphs */
         src: local('clearface-bold'),
           url('https://s3.amazonaws.com/static.gusto/fonts/clearface-bold.woff2') format('woff2'),
           url('https://s3.amazonaws.com/static.gusto/fonts/clearface-bold.woff') format('woff');
@@ -161,7 +162,8 @@
       margin-right:auto;
       padding-top: 50px;
     }
-    #instructions-in-spanish {
+    #instructions-in-spanish,
+    #instructions-in-french {
       background-color: #EAEAEA; /* Salt-400 */
       border-radius: 8px;
       padding: 1rem;
@@ -186,7 +188,11 @@
   <tr>
     <td>
       <div class="img-wrapper">
-        <img src="https://s3.amazonaws.com/static.gusto/illustrations/gusto-lock-illo.png" />
+        <img 
+          src="https://s3.amazonaws.com/static.gusto/illustrations/gusto-lock-illo.png" 
+          alt="lock"
+          title="lock"
+        />
       </div>
       <h1>Security Check</h1>
       <p>Before you continue, we need to do a quick security check. A few things could have triggered this:</p>
@@ -195,7 +201,7 @@
         <li>You’re using a VPN or privacy software</li>
         <li>You’re browsing at superhuman speed</li>
       </ul>
-      <p>Please complete the puzzle below and you’ll be able to continue using Gusto.</p>
+      <p>Please click on the "I am human" box and complete the challenge below. Then you’ll be able to continue using Gusto.</p>
     </td>
   </tr>
     <tr>
@@ -203,16 +209,46 @@
     </tr>
     <tr>
       <td>
-    <p>If you're unable to access the site or need assistance, please copy the info below and email it to our Security team at <a href="mailto:assurance@gusto.com?subject=Challenge%20accessing%20Gusto&body=%3A%3ARAY_ID%3A%3A">assurance@gusto.com</a>. We’ll do our best to figure it out.</p>
-    <p>Cloudflare Ray ID: ::RAY_ID::</p>
-    <p>Your IP: ::CLIENT_IP::</p>
+    <p>Cloudflare Ray ID: <span id="ray-id">::RAY_ID::</span></p>
+    <p>Your IP: <span id="client-ip">::CLIENT_IP::</span></p>
+
+    <script>
+      var rayId = document.getElementById("ray-id")
+      var clientIp = document.getElementById("client-ip")
+
+      if (rayId) {
+        rayId = rayId.innerText
+      } else {
+        rayId = "_fill%20in%20here_"
+      }
+
+      if (clientIp) {
+        clientIp = clientIp.innerText
+      } else {
+        clientIp = "_fill%20in%20here_"
+      }
+
+      var englishSubjectBody = "subject=Challenge%20accessing%20Gusto&body=Hi-%0AI%20received%20a%20challenge%20while%20trying%20to%20access%20Gusto%20and%20need%20additional%20help.%0A%0ACloudflare%20Ray%20ID%3A%20" + rayId + "%0AMy%20IP%3A%20" + clientIp
+      var spanishSubjectBody = "subject=Verificación%20accessando%20Gusto&body=Hola%20-%20%0A%0ARecib%C3%AD%20una%20verificaci%C3%B3n%20de%20seguridad%2C%20y%20necesito%20m%C3%A1s%20ayuda.%0A%0ACloudflare%20Ray%20ID%3A%20" +rayId + "%0AMy%20IP%3A%20" + clientIp
+      var frenchSubjectBody = "subject=Contr%C3%B4le%20de%20s%C3%A9curit%C3%A9%20pour%20acc%C3%A9der%20%C3%A0%20Gusto&body=Bonjour-%0AJ'ai%20re%C3%A7u%20un%20contr%C3%B4le%20de%20s%C3%A9curit%C3%A9%20en%20essayant%20de%20me%20connecter%20%C3%A0%20Gusto%20et%20j'ai%20besoin%20d'une%20aide%20suppl%C3%A9mentaire.%0A%0ACloudflare%20Ray%20ID:%20" + rayId + "%0AMon%20IP:%20" + clientIp
+    </script>
+
+    <p>If you're unable to complete the challenge, please take a screenshot of this page and email it to our Security team at <a href="#" onclick="javascript:window.location='mailto:security@gusto.com?'+englishSubjectBody">security@gusto.com</a>. We’ll do our best to figure it out.</p>
+
   </td>
   </tr>
   <tr ><td><br /></td></tr>
   <tr>
     <td id="instructions-in-spanish" lang="es">
       <p>Antes de continuar, tenemos que comprobar algunas cosas. Complete la verificación de seguridad anterrior y podrá continuar navegando Gusto.</p>
-      <p>Si usted no puede navegar Gusto o si necesita ayuda con la verificación, copie el "Cloudflare Ray Id" y "Your IP", y envíelos a <a href="mailto:assurance@gusto.com?subject=Verificación%accessando%20Gusto&body=Hola%20-%20%0A%0ARecib%C3%AD%20una%20verificaci%C3%B3n%20de%20seguridad%2C%20y%20necesito%20m%C3%A1s%20ayuda.%0A%0ACloudflare%20Ray%20ID%3A%20%3Ccomplete%20aqu%C3%AD%3E%0AMy%20IP%3A%20%3Ccomplete%20aqu%C3%AD%3E">assurance@gusto.com</a>. ¡Trataremos a ayudarle!</p>
+      <p>Si usted no puede navegar Gusto o si necesita ayuda con la verificación, copie el "Cloudflare Ray Id" y "Your IP", y envíelos a <a href="#" onclick="javascript:window.location='mailto:security@gusto.com?'+spanishSubjectBody">security@gusto.com</a>. ¡Trataremos a ayudarle!</p>
+    </td>
+  </tr>
+  <tr ><td><br /></td></tr>
+  <tr>
+    <td id="instructions-in-french" lang="fr">
+      <p>Avant de continuer, nous avons besoin de vérifier quelques petites choses. Veuillez effectuer le contrôle de sécurité ci-dessus et vous pourrez accéder à Gusto.</p>
+      <p>Si vous ne parvenez pas à vous connecter à Gusto ou si vous avez besoin d'aide pour la vérification, copiez "Cloudflare Ray Id" et "Your IP", envoyez-les à <a href="#" onclick="javascript:window.location='mailto:security@gusto.com?'+frenchSubjectBody">security@gusto.com</a> et nous vous aiderons!</p>
     </td>
   </tr>
   </table>
