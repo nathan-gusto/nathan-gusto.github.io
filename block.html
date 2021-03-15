@@ -1,25 +1,26 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 <head>
   <title>Gusto</title>
-  <link as="font" crossorigin: 'anonymous' href="https://s3.amazonaws.com/static.gusto/fonts/clearface-bold.woff2" rel="preload" type="font/woff2"></link>
-  <link as="font" crossorigin: 'anonymous' href="https://s3.amazonaws.com/static.gusto/fonts/gcentra-book.woff2" rel="preload" type="font/woff2"></link>
-  <link as="font" crossorigin: 'anonymous' href="https://s3.amazonaws.com/static.gusto/fonts/gcentra-medium.woff2" rel="preload" type="font/woff2"></link>
+  <link as="font" crossorigin="anonymous" href="https://s3.amazonaws.com/static.gusto/fonts/clearface-bold.woff2" rel="preload" type="font/woff2">
+  <link as="font" crossorigin="anonymous" href="https://s3.amazonaws.com/static.gusto/fonts/gcentra-book.woff2" rel="preload" type="font/woff2">
+  <link as="font" crossorigin="anonymous" href="https://s3.amazonaws.com/static.gusto/fonts/gcentra-medium.woff2" rel="preload" type="font/woff2">
 
-  <link href="https://s3.amazonaws.com/static.gusto/favicons/gusto-favicon-192x192.png" rel="icon" sizes="192x192" type="image/png"></link>
-  <link href="https://s3.amazonaws.com/static.gusto/favicons/gusto-favicon-192x192.png" rel="apple-touch-icon"></link>
+  <link href="https://s3.amazonaws.com/static.gusto/favicons/gusto-favicon-192x192.png" rel="icon" sizes="192x192" type="image/png">
+  <link href="https://s3.amazonaws.com/static.gusto/favicons/gusto-favicon-192x192.png" rel="apple-touch-icon">
   <meta content="Gusto" name="application-name"/>
   <meta content="#ffffff" name="msapplication-TileColor"/>
   <meta content="https://s3.amazonaws.com/static.gusto/favicons/gusto-favicon-144x144.png" name="msapplication-TileImage"/>
-  <style type="text/css">
+  <meta charset="UTF-8">
+  <style>
   /* START Custom CSS */
     @font-face {
       font-family: 'gcentra';
       font-weight: 300;
       font-style: normal;
       font-display: swap;
-      unicode-range: U + 000-5ff; /* Download only latin glyphs */
+      unicode-range: U+000-5ff; /* Download only latin glyphs */
       src: local('gcentra-book'),
         url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-book.woff2') format('woff2'),
         url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-book.woff') format('woff');
@@ -29,7 +30,7 @@
       font-weight: 400;
       font-style: normal;
       font-display: swap;
-      unicode-range: U + 000-5ff; /* Download only latin glyphs */
+      unicode-range: U+000-5ff; /* Download only latin glyphs */
       src: local('gcentra-medium'),
         url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-medium.woff2') format('woff2'),
         url('https://s3.amazonaws.com/static.gusto/fonts/gcentra-medium.woff') format('woff');
@@ -40,7 +41,7 @@
       font-weight: 700;
       font-style: normal;
       font-display: swap;
-      unicode-range: U + 000-5ff; /* Download only latin glyphs */
+      unicode-range: U+000-5ff; /* Download only latin glyphs */
       src: local('clearface-bold'),
         url('https://s3.amazonaws.com/static.gusto/fonts/clearface-bold.woff2') format('woff2'),
         url('https://s3.amazonaws.com/static.gusto/fonts/clearface-bold.woff') format('woff');
@@ -141,41 +142,6 @@
     td {
       padding: 10px 0px 10px 0px;
     }
-    input[type="submit"] {
-      margin: 20px 0 20px;
-      padding: 10px 16px;
-      line-height: 1.33;
-      font-size: 14px;
-      font-weight: 400;
-      text-transform: uppercase;
-      color: #FFF;
-      background: #555;
-      border: solid #555;
-      border-width: 0 0 2px 0;
-      border-radius: 2px;
-      transition: all 200ms;
-    }
-    #dUF_unblock_text {
-      font-size: 75%;
-    }
-    #distilUnblockForm label {
-      display: block;
-      font-weight: 600;
-      font-size: 75%;
-    }
-    #distilUnblockForm input[type="text"] {
-      width: 100%;
-      height: 36px;
-      margin: 13px 0 19px;
-      padding: 6px 12px;
-      font-size: 75%;
-      color: #555;
-      border: 1px solid #C0C1C2;
-      border-radius: 4px;
-    }
-    #distilCaptchaForm {
-      font-size: 75%;
-    }
     #mainTable {
       border: 0;
       max-width: 700px;
@@ -184,19 +150,12 @@
       margin-right:auto;
       padding-top: 50px;
     }
-    #distilSubtext {
-      font-size: 75%;
-      padding: 20px;
-      background: #f7f7f7;
-      border: 1px solid #e2e2e2;
-      border-radius: 3px;
-      color: #7f7f7f;
-      line-height: 18px;
-      word-wrap: break-word;
-      word-break: break-all;
-    }
-    #dCF_complete, #funcaptcha {
-      text-align: center;
+    #instructions-in-spanish,
+    #instructions-in-french {
+      background-color: #EAEAEA; /* Salt-400 */
+      border-radius: 8px;
+      padding: 1rem;
+      padding-bottom: 0; /* margin-bottom on <p> tag adds 1rem to bottom */
     }
   </style>
 </head>
@@ -216,16 +175,32 @@
   <table id="mainTable">
     <!-- DEFAULT BLOCK MESSAGE -->
     <tr>
-      <td class="langBlock_en-US">
-        <div class='img-wrapper'>
-          <img src='https://s3.amazonaws.com/static.gusto/illustrations/gusto-lock-illo.png' />
+      <td>
+        <div class="img-wrapper">
+          <img
+            src="https://s3.amazonaws.com/static.gusto/illustrations/gusto-lock-illo.png"
+            alt="lock"
+            title="lock"
+          />
         </div>
         <h1>Please contact our Security team</h1>
-        <p>We weren’t able to load this page. To help us figure out what’s wrong, please copy the info below and email our Security team at <a href='mailto:security@gusto.com'>security@gusto.com</a> and give us any details you can about how you got here. We’ll do our best to figure it out.</p>
+        <p>We weren’t able to load this page. To help us figure out what’s wrong, please copy the info below and email our Security team at <a href="mailto:security@gusto.com?subject=Blocked%20from%20accessing%20Gusto&body=Hi-%0AI%20was%20blocked%20while%20trying%20to%20access%20Gusto%20and%20need%20additional%20help.%0A%0ACloudflare%20Ray%20ID%3A%20_fill%20in%20here_%0AMy%20IP%3A%20_fill%20in%20here_">security@gusto.com</a> and give us any details you can about how you got here. We’ll do our best to figure it out.</p>
         <p>Cloudflare Ray ID: ::RAY_ID::</p>
         <p>Your IP: ::CLIENT_IP::</p>
       </td>
     </tr>
-    <!-- END DEFAULT BLOCK MESSAGE -->
+    <tr ><td><br /></td></tr>
+    <tr>
+      <td id="instructions-in-spanish" lang="es">
+        <p>No pudimos mostrarle esta página. Para ayudarnos investigar lo que ocurrió, copie el "Cloudflare Ray Id" y "Your IP", y envíelos a <a href="mailto:security@gusto.com?subject=Obstruido%accessando%20Gusto&body=Hola%20-%20%0A%0ANo%20pude%20navegar%20Gusto%2C%20y%20necesito%20m%C3%A1s%20ayuda.%0A%0ACloudflare%20Ray%20ID%3A%20_complete%20aqu%C3%AD_%0AMy%20IP%3A%20_complete%20aqu%C3%AD_">security@gusto.com</a></p>
+      </td>
+    </tr>
+    <tr ><td><br /></td></tr>
+    <tr>
+      <td id="instructions-in-french" lang="fr">
+        <p>Nous ne pouvons pas charger cette page. Pour nous aider à comprendre ce qu'il s'est passé, veuillez copier les informations ci-dessus et les envoyer par email à <a href="mailto:security@gusto.com?subject=Je%20ne%20peux%20pas%20acc%C3%A9der%20%C3%A0%20Gusto&body=Bonjour-%0AJe%20ne%20peux%20pas%20acc%C3%A9der%20%C3%A0%20Gusto%20et%20j'ai%20besoin%20d'une%20aide%20suppl%C3%A9mentaire.%0A%0ACloudflare%20Ray%20ID:%20_%C3%A0%20compl%C3%A9ter_%0AMon%20IP:%20_%C3%A0%20compl%C3%A9ter_">security@gusto.com</a></p>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
