@@ -57,6 +57,14 @@
         text-rendering: optimizeLegibility;
         padding: 0 15px;
       }
+      main {
+        border: 0;
+        max-width: 750px;
+        align-content: center;
+        margin-left:auto;
+        margin-right:auto;
+        padding-top: 50px;
+      }
       p {
         font-size: 16px;
         font-weight: 300;
@@ -72,7 +80,7 @@
         line-height: 56px;
         letter-spacing: -0.285px;
         margin-top: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 1rem;
       }
       a {
         color: #2babad;
@@ -82,6 +90,20 @@
         align-items: center;
         height: 75px;
         margin: 0 15px;
+      }
+      #captcha {
+        align-items: center;
+        margin-top:50px;
+        margin-bottom:50px;
+      }
+      #debug-info {
+        display: box;
+        background-color: #EAEAEA; /* Salt-400 */
+        border-radius: 8px;
+        padding: 1rem;
+      }
+      #debug-info div {
+        padding: 0.25rem;
       }
       .logo {
         line-height: 0;
@@ -136,39 +158,21 @@
       .img-wrapper img {
         width: 60px;
       }
-    /* END Custom CSS */
-    input[type="submit"] { /* used by form which Cloudflare injects into page */
-      margin: 20px 0 20px;
-      padding: 10px 16px;
-      line-height: 1.33;
-      font-size: 14px;
-      font-weight: 400;
-      text-transform: uppercase;
-      color: #FFF;
-      background: #555;
-      border: solid #555;
-      border-width: 0 0 2px 0;
-      border-radius: 2px;
-      transition: all 200ms;
-    }
-    td {
-      padding: 10px 0px 10px 0px;
-    }
-    #mainTable {
-      border: 0;
-      max-width: 750px;
-      align-content: center;
-      margin-left:auto;
-      margin-right:auto;
-      padding-top: 50px;
-    }
-    #instructions-in-spanish,
-    #instructions-in-french {
-      background-color: #EAEAEA; /* Salt-400 */
-      border-radius: 8px;
-      padding: 1rem;
-      padding-bottom: 0; /* margin-bottom on <p> tag adds 1rem to bottom */
-    }
+      /* END Custom CSS */
+      input[type="submit"] { /* used by form which Cloudflare injects into page */
+        margin: 20px 0 20px;
+        padding: 10px 16px;
+        line-height: 1.33;
+        font-size: 14px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #FFF;
+        background: #555;
+        border: solid #555;
+        border-width: 0 0 2px 0;
+        border-radius: 2px;
+        transition: all 200ms;
+      }
   </style>
 </head>
 <body>
@@ -184,34 +188,32 @@
       <a class="btn btn-secondary" href="https://gusto.com">Back to Gusto.com</a>
     </div>
   </nav>
-  <table id="mainTable">
-  <tr>
-    <td>
-      <div class="img-wrapper">
-        <img 
-          src="https://s3.amazonaws.com/static.gusto/illustrations/gusto-lock-illo.png" 
-          alt="lock"
-          title="lock"
-        />
+  <main>
+    <div class="img-wrapper">
+      <img
+              src="https://s3.amazonaws.com/static.gusto/illustrations/gusto-lock-illo.png"
+              alt="lock"
+              title="lock"
+            />
       </div>
       <h1>Security Check</h1>
-      <p>Before you continue, we need to do a quick security check. A few things could have triggered this:</p>
-      <ul>
-        <li>You’re using a browser plugin that blocks JavaScript</li>
-        <li>You’re using a VPN or privacy software</li>
-        <li>You’re browsing at superhuman speed</li>
-      </ul>
-      <p>Please click on the "I am human" box and complete the challenge below. Then you’ll be able to continue using Gusto.</p>
-    </td>
-  </tr>
-    <tr>
-      <td>::CAPTCHA_BOX::</td>
-    </tr>
-    <tr>
-      <td>
-    <p>Cloudflare Ray ID: <span id="ray-id">::RAY_ID::</span></p>
-    <p>Your IP: <span id="client-ip">::CLIENT_IP::</span></p>
-
+      <div>
+        <p>Before you continue, we need to do a quick security check. A few things could have triggered this:</p>
+        <ul>
+          <li>You’re using a browser plugin that blocks JavaScript</li>
+          <li>You’re using a VPN or privacy software</li>
+          <li>You’re browsing at superhuman speed</li>
+        </ul>
+        <p>Please click on the "I am human" box and complete the challenge below. Then you’ll be able to continue using Gusto.</p>
+      </div>
+      <div id="captcha">::CAPTCHA_BOX::</div>
+      <div id="debug-info">
+        <div>Cloudflare Ray ID: <span id="ray-id">::RAY_ID::</span></div>
+        <div>Your IP: <span id="client-ip" class="margin-left-auto">::CLIENT_IP::</span></div>
+        <br />
+        <div><p>If you're unable to complete the challenge, please take a screenshot of this page and email it to our Security team at <a href="#" onclick="javascript:window.location='mailto:security-check@gusto.com?'+englishSubjectBody">security-check@gusto.com</a>. We’ll do our best to figure it out.</p></div>
+      </div>
+    </main>
     <script>
       var rayId = document.getElementById("ray-id")
       var clientIp = document.getElementById("client-ip")
@@ -230,11 +232,5 @@
 
       var englishSubjectBody = "subject=Challenge%20accessing%20Gusto&body=Hi-%0AI%20received%20a%20challenge%20while%20trying%20to%20access%20Gusto%20and%20need%20additional%20help.%0A%0ACloudflare%20Ray%20ID%3A%20" + rayId + "%0AMy%20IP%3A%20" + clientIp
     </script>
-
-    <p>If you're unable to complete the challenge, please take a screenshot of this page and email it to our Security team at <a href="#" onclick="javascript:window.location='mailto:security-check@gusto.com?'+englishSubjectBody">security-check@gusto.com</a>. We’ll do our best to figure it out.</p>
-
-  </td>
-  </tr>
-  </table>
 </body>
 </html>
